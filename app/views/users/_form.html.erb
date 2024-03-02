@@ -1,0 +1,23 @@
+<!--New Bookの部分テンプレート-->
+
+    <%= form_with model:book, local:true do |f| %>
+
+    <div class="form-group">
+      <%= f.label :title %>
+      <%= f.text_field :title, class: 'form-control book_title' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :opinion %>
+      <%= f.text_area :body, class: 'form-control book_body' %>
+    </div>
+
+    <div class="form-group">
+      <% if book.persisted? %>
+        <%= f.submit 'Update Book', class: 'btn btn-success' %>
+      <% else %>
+        <%= f.submit 'Create Book', class: 'btn btn-success' %>
+      <% end %>
+    </div>
+
+   <% end %>

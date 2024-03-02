@@ -1,0 +1,27 @@
+<!--すべてのページに共通する部分-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookers2Ver2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!--FontAwesomeの導入-->
+    <script src="https://kit.fontawesome.com/e5fd4ead5a.js" crossorigin="anonymous"></script>
+    <!--Boot strapの導入-->
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <!-- _headerの部分テンプレート -->
+    <%= render partial: 'layouts/header' %>
+      <main>
+        <p id="notice"><%= notice %></p>
+        <%= yield %>
+        <!--yieldはすべてのページを表示させる機能が備わっている-->
+      </main>
+      <!-- _footerの部分テンプレート -->
+    <%= render partial: 'layouts/footer' %>
+  </body>
+  </html>
