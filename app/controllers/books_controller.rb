@@ -5,6 +5,7 @@ before_action :is_matching_login_user, only: [:edit, :update]
     @book = Book.find(params[:id])
     @user = @book.user
     @users = User.all
+    @comment = @book.book_comments.build
   end
 
   def index
@@ -13,6 +14,7 @@ before_action :is_matching_login_user, only: [:edit, :update]
     @users = @books
     @user = current_user
     @errors = flash.now[:error]
+    @book_comment = BookComment.new
   end
 
   def create

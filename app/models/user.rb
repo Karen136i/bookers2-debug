@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   # User モデルに対して、book モデルが 1:N になるよう関連付ける 2-9:1:N の関係性をモデルに実装する
   has_many :books, dependent: :destroy
+  # コメント機能の追加
+  has_many :book_comments, dependent: :destroy
 
   # 2-8 モデルに image を持たせる
   has_one_attached :profile_image
