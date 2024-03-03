@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   get "home/about"=>"homes#about", as: "about"
 
   resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
-    resources :book_comments, only: [:create, :index, :show]
+    resource :favorite, only: [:create, :destroy] #resource:単数形なのは、1人のユーザーは1つの投稿に対して1回しかいいねできないようにするため
+    resources :book_comments, only: [:create, :index, :show, :destroy]
   end
   resources :users, only: [:index, :show, :edit, :update, :destroy]
 

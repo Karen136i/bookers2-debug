@@ -1,12 +1,12 @@
+<!--Books の部分テンプレート-->
 <table class='table table-hover table-inverse'>
   <thead>
     <tr>
       <th></th>
       <th>Title</th>
       <th>Opinion</th>
-      <th colspan="3"></th>
-      <th colspan="4"></th>
-      <th colspan="5"></th>
+      <th colspan="2"></th>
+  
     </tr>
   </thead>
   <tbody>
@@ -21,6 +21,22 @@
         <td><%= link_to book.title,book_path(book.id) %></td>
 
         <td><%= book.body %></td>
+        
+        <td>
+           <% if book.favorited_by?(current_user) %>
+          
+                <%= link_to book_favorite_path(book), method: :delete, style:'color:red;' do %>
+                ♥<%= book.favorites.count %>
+                <% end %>
+          
+            <% else %>
+            
+                <%= link_to book_favorite_path(book), method: :post do %>
+                ♥<%= book.favorites.count %>
+                <% end %>
+          
+            <% end %>
+         </td>
         
         <td>コメント数:<%= book.book_comments.count %></td> <!-- コメント数を表示 -->
 

@@ -35,6 +35,22 @@
          </td>
          
          <td>
+           <% if @book.favorited_by?(current_user) %>
+            <p>
+                <%= link_to book_favorite_path(@book), method: :delete, style:'color:red;' do %>
+                ♥<%= @book.favorites.count %>
+                <% end %>
+            </p>
+            <% else %>
+            <p>
+                <%= link_to book_favorite_path(@book), method: :post do %>
+                ♥<%= @book.favorites.count %>
+                <% end %>
+            </p>
+            <% end %>
+         </td>
+         
+         <td>
            コメント数:<%= @book.book_comments.count %>
          </td>
     
@@ -53,16 +69,23 @@
        </tr>
       </tbody>
     </table>
-    
+              <!--コメント機能の追加-->
        <div>
-        <% @book.book_comments.each do |comment| %>
+           <% @book.book_comments.each do |comment| %>
             <% if comment.user.present? %>
              <%= image_tag comment.user.get_profile_image(50, 50) %>
-             <%= comment.user.name %>
+             <%= comment.comment %>
+             <% if current_user == comment.user %>
+             <%= link_to "Destroy",book_book_comment_path(comment), method: :delete, data: { confirm: "本当に消しますか？" }, class: "btn btn-danger" %>
+             <% end %>
+             <br><%= link_to comment.user.name, user_path(comment.user) %>
+             
+             <!--コメント用のdestroyの追加-->
+             
             <% end %>
            <% end %>
        </div>    
-         
+       
          
        <div>
         <%= form_with model: @comment, url: book_book_comments_path(@book) do |f| %>
