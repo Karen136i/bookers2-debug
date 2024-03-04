@@ -29,7 +29,7 @@
             <%= link_to destroy_user_session_path, method: :delete,class: 'nav-link text-light' do %>
               <i class="fas fa-sign-out-alt"></i> Log out
             <% end %>
-            
+          
         <% else %>
         
         <!--ログイン前のヘッダー-->
@@ -50,8 +50,14 @@
             <% end %>
 
         <% end %>
+            
         </ul>
       </div>
     </div>
   </nav>
 </header>
+
+<!--検索機能の追加-->
+           <div class="text-center">
+              <%= render 'searches/form' %>
+           </div> 

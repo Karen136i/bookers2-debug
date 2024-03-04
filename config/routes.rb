@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root to: 'homes#top'
   get '/users', to: 'users#index'
   get "home/about"=>"homes#about", as: "about"
+  get "search", to: "searches#search" # 検索機能の実装
 
   resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
     # いいね機能ぼ追加
