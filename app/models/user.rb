@@ -13,6 +13,9 @@ class User < ApplicationRecord
 
   # いいね機能の追加
   has_many :favorites, dependent: :destroy
+  
+  # DM機能実装(相互フォロワーのみ利用可能)
+ 
 
   # フォロー・フォロワー機能の追加
 

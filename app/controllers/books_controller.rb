@@ -15,6 +15,9 @@ before_action :is_matching_login_user, only: [:edit, :update]
     @user = current_user
     @errors = flash.now[:error]
     @book_comment = BookComment.new
+    @books = Book.includes(:user, :favorites)
+               .where(created_at: 1.week.ago..Time.current)
+               .sort_by { |book| -book.favorites.count }
   end
 
   def create

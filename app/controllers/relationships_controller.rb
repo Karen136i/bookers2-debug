@@ -1,5 +1,5 @@
 class RelationshipsController < ApplicationController
-
+# フォロー・フォロワー機能の追加
  before_action :authenticate_user!
   def create
     user = User.find(params[:user_id])

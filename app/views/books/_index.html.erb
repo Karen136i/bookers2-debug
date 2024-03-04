@@ -6,7 +6,7 @@
       <th>Title</th>
       <th>Opinion</th>
       <th colspan="2"></th>
-  
+
     </tr>
   </thead>
   <tbody>
@@ -21,12 +21,12 @@
         <td><%= link_to book.title,book_path(book.id) %></td>
 
         <td><%= book.body %></td>
-        
+
         <!--いいね機能の非同期化-->
         <td id="favorite_btn_<%= book.id %>">
           <%= render "favorites/btn", book: book %>
         </td>
-        
+
         <td>コメント数:<%= book.book_comments.count %></td> <!-- コメント数を表示 -->
 
       </tr>
