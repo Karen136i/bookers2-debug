@@ -1,4 +1,5 @@
 class Message < ApplicationRecord
+  # DM 機能の
   belongs_to :user
   belongs_to :room
   
