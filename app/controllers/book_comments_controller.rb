@@ -5,7 +5,7 @@ class BookCommentsController < ApplicationController
     comment = current_user.book_comments.new(book_comment_params)
     comment.book = book
     comment.save
-    redirect_to book_path(book)
+    redirect_to request.referer
   end
 
   def show
@@ -16,7 +16,7 @@ class BookCommentsController < ApplicationController
   def destroy
     @comment = BookComment.find(params[:id])
     @comment.destroy
-    redirect_to book_path(@comment.book)
+    redirect_to request.referer
   end
 
   private

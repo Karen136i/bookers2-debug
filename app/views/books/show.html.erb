@@ -33,25 +33,13 @@
          <td>
            <%= @book.body %>
          </td>
-         <!--いいね機能の追加-->
-         <td>
-           <% if @book.favorited_by?(current_user) %>
-            <p>
-                <%= link_to book_favorite_path(@book), method: :delete, style:'color:red;' do %>
-                ♥<%= @book.favorites.count %>
-                <% end %>
-            </p>
-            <% else %>
-            <p>
-                <%= link_to book_favorite_path(@book), method: :post do %>
-                ♥<%= @book.favorites.count %>
-                <% end %>
-            </p>
-            <% end %>
+         <!--いいね機能の追加/非同期化-->
+         <td id="favorite_btn_<%= @book.id %>">
+             <%= render "favorites/btn", book: @book %>
          </td>
-         <!--コメント機能の追加-->
-         <td>
-           コメント数:<%= @book.book_comments.count %>
+         <!--コメント機能の追加/非同期化-->
+         <td id="comment_counter">
+             <%= render "book_comments/counter", book: @book %>
          </td>
     
          <td>
@@ -69,28 +57,11 @@
        </tr>
       </tbody>
     </table>
-              <!--コメント機能の追加-->
-       <div>
-           <% @book.book_comments.each do |comment| %>
-            <% if comment.user.present? %>
-             <%= image_tag comment.user.get_profile_image(50, 50) %>
-             <%= comment.comment %>
-             <% if current_user == comment.user %>
-             <!--コメント用のdestroyの追加-->
-             <%= link_to "Destroy",book_book_comment_path(comment), method: :delete, data: { confirm: "本当に消しますか？" }, class: "btn btn-danger" %>
-             <% end %>
-             <br><%= link_to comment.user.name, user_path(comment.user) %>
-             
-            <% end %>
-           <% end %>
-       </div>    
-         
-       <div>
-        <%= form_with model: @comment, url: book_book_comments_path(@book) do |f| %>
-           <%= f.text_area :comment, rows: '5', cols: '80', placeholder: "コメントをここに" %>
-           <br><%= f.submit "送信" %>
-        <% end %>
+              <!--コメント機能の追加/非同期化-->
+       <div id="comment_index">
+         <%= render "book_comments/index", book: @book %>
        </div>
+         <%= render "book_comments/form", book: @book, book_comment: @book_comment %>
     
   </div>
  </div>
