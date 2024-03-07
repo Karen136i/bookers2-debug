@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row">
+    <% @entries.each do |e| %>
+    <!--「@entries」の相互フォロワー同士の情報をとりたいため、eachでフォロー・フォロワーの情報を取得している-->
+      <% if @my_account != e.user.id %>
+      <!--「<!% if @my_account != e.user.id %>　rommsコントローラーで@my_accountにログイン中のユーザーIDを代入しているため、
+      「!=」とすることでDM送信相手の名前を表示させる-->
+        <h4><strong><%= e.user.name %>さんとのチャット</strong></h4>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="row my-3">
+    <%= link_to "Usersページに戻る", users_path, class:"btn btn-secondary btn-sm" %>
+  </div>
+
+  <div class="row">
+    <table class="table table-hover">
+    <% if @messages.present? %>
+    <!--<!% if @messages.present? %>でDMが存在するかを確認し、メッセージのやりとりがあればeachでメッセージを表示させる-->
+      <% @messages.each do |m| %>
+        <tr>
+          <td><%= m.user.name %></td>
+          <td><%= m.message %></td>
+        </tr>
+      <% end %>
+    <% end %>
+    </table>
+  </div>
+
+  <div class="row">
+  <%= form_for @message do |f| %>
+  <!--DMを送信するためのフォームを、form_forで作成-->
+  <!--<!%= form_for @message do |f| %>では、@messageの他にこのmessageがどのroomに所属しているかを判断するためにhidden_fieldにroomの情報を持たせる-->
+  <!--このformで送られたパラメーターがmessages_controllerに送られる-->
+    <%= f.text_field :message, placeholder: "メッセージを入力して下さい" , size: 50, class:"form-text-field" %>
+      <%= f.hidden_field :room_id, value: @room.id %>
+      <%= f.submit "送信",class:"btn btn-success"%>
+  <% end %>
+  </div>
+</div>

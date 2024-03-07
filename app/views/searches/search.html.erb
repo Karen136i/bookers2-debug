@@ -1,4 +1,6 @@
 <!--検索機能の追加-->
+<% if current_user.present? %>
+<!--ログインしているかどうかを確認する記述-->
 <% if @model == 'user' %>
   <h3>Users search for "<%= @content %>"</h3>
   <%= render 'users/index', users: @records %>

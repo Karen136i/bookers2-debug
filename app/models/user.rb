@@ -13,7 +13,7 @@ class User < ApplicationRecord
 
   # いいね機能の追加
   has_many :favorites, dependent: :destroy
-  
+
 
   # フォロー・フォロワー機能の追加
 
@@ -56,10 +56,13 @@ class User < ApplicationRecord
       User.where('name LIKE ?', '%' + content + '%')
     end
   end
-  
+
   # DM機能実装(相互フォロワーのみ利用可能)
   has_many :entries, dependent: :destroy
   has_many :messages, dependent: :destroy
+
+  # 閲覧数の表示
+  has_many :view_counts, dependent: :destroy
 
   # 2-8 モデルに image を持たせる
   has_one_attached :profile_image

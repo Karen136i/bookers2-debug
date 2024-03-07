@@ -3,6 +3,12 @@ before_action :is_matching_login_user, only: [:edit, :update]
 
   def show
     @book = Book.find(params[:id])
+    # 閲覧数の表示
+    unless ViewCount.find_by(user_id: current_user.id, book_id: @book.id)
+      # 一度閲覧したユーザーを数えたくないので↑のを使う
+      current_user.view_counts.create(book_id: @book.id)
+    end
+    # ここまで
     @user = @book.user
     @users = User.all
     @comment = @book.book_comments.build

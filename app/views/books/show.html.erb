@@ -41,6 +41,9 @@
          <td id="comment_counter">
              <%= render "book_comments/counter", book: @book %>
          </td>
+         
+         <!--閲覧数の追加-->
+         <td>閲覧数: <%= @book.view_counts.count %></td>
 
          <td>
            <% if @book.user == current_user %>

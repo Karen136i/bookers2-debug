@@ -26,8 +26,12 @@
         <td id="favorite_btn_<%= book.id %>">
           <%= render "favorites/btn", book: book %>
         </td>
-
-        <td>コメント数:<%= book.book_comments.count %></td> <!-- コメント数を表示 -->
+        
+        <!-- コメント数を表示 -->
+        <td>コメント数:<%= book.book_comments.count %></td> 
+        
+        <!--閲覧数の表示-->
+        <td>閲覧数: <%= book.view_counts.count %></td>
 
       </tr>
     <% end %>

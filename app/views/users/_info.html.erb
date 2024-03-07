@@ -28,11 +28,38 @@
 </table>
 
 <div class='row'>
+  <!--フォロー機能の追加-->
   <% if current_user != user %>
   <%= render "relationships/btn", user: user, options: { class: "follow-link" } %>
-<% else %>
+<% else %> <!--ここが機能しない-->
   <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
     <i class="fas fa-user-cog"></i>
+  <% end %>
+<% end %>
+
+<!--DM機能の追加-->
+<% unless @user.id == current_user.id %>
+  <% if (current_user.following? @user) && (@user.following? current_user) %>
+  <!--現在ログインしているユーザーではない　かつ　相互フォロー状態　の時、で条件分岐させる-->
+  <% if @is_room == true %>
+  <!--「@is_room」を使用してroomsが作成されているか条件分岐させる-->
+
+    <%= link_to "chatを始める", room_path(@room_id), style: "margin-left: 0.5em;" %>
+    <!--「@is_room」がtrueの時、「DMを送る」ボタンが表示され、チャットルームに移動できる-->
+  <% else %>
+    <%= form_with model: @room do |f| %>
+    <!--「@is_room」がfalseの時、form_forを使用してコントローラーにパラメーターを送る-->
+      <%= fields_for @entry do |e| %>
+      <!--レコードには親モデルのRoomsテーブルと子モデルのEntriesテーブルの両方を保存する必要があるため、
+      親モデルには「form_for インスタンス変数」,子モデルには「fields_for インスタンス変数」としている-->
+        <%= e.hidden_field :user_id, value: @user.id %>
+        <!--Entriesテーブルのレコードにはuser_idを送る必要があるため、「hidden_field」で@user.idをvalueにおく-->
+      <% end %>
+      <tr>
+      <th><%= f.submit "chatを始める" %></th>
+      </tr>
+    <% end %>
+  <% end %>
   <% end %>
 <% end %>
 
